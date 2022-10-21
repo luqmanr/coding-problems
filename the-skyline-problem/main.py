@@ -1,16 +1,10 @@
 class Solution:
     def areOccurrencesEqual(self, s: str) -> bool:
-        chars = []
-        for char in s:
-            chars.append(char)
-        chars = set(chars)
+        chars = set(s)
         counts = []
         for char in chars:
-            count = 0
-            for z in s:
-                if z == char:
-                    count += 1
-            counts.append(count)
+            count = [z for z in s if z == char]
+            counts.append(len(count))
         counts = set(counts)
         if len(counts) > 1:
             return False
