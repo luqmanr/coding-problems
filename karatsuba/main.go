@@ -3,57 +3,65 @@ package main
 import (
 	"fmt"
 	"math"
-	"strconv"
 )
 
-func CountDigit(n int) int {
-	// if input digit is 0, should we count it as 1 digit?
-	if n == 0 {
+func getDecimalDigits(num int) uint {
+	var result uint
+
+	if num == 0 {
 		return 1
 	}
-	// else, divide int by 10, removing the least significant digit
-	// while counting how many loops are done -> this count
-	// is how many digits is the number
-	count := 0
-   	for n > 0 {
-		n = n/10
-    	count++
-   	}
-	return count
+
+	if num < 0 {
+		num = -num
+	}
+	for num > 0 {
+		result++
+		num = num / 10
+	}
+
+	return result
 }
 
-func Karatsuba(x, y int) int {
-	fmt.Printf("x: %d, y: %d\n", x,y)
-	xStr := strconv.Itoa(x)
-	yStr := strconv.Itoa(y)
+func getHighAndLowDigits(num int, digits uint) (int, int) {
+	divisor := int(math.Pow(10, float64(digits)))
+	if num >= divisor {
+		fmt.Println(num / divisor, num % divisor)
+		return num / divisor, num % divisor
+	} else {
+		fmt.Println(0, num)
+		return 0, num
+	}
+}
 
-	if len(xStr) <= 1 || len(yStr) <= 1 || x == 0 || y == 0 {
-		fmt.Printf("multiplying %d * %d = %d\n", x, y, x*y)
+func Karatsuba(x int, y int) int {
+	var max_digits uint
+
+	if x == 0 || y == 0 {
+		return 0
+	}
+
+	if x < 10 || y < 10 {
 		return x * y
 	}
 
-	a, _ := strconv.Atoi(xStr[:len(xStr)/2])
-	b, _ := strconv.Atoi(xStr[len(xStr)/2:])
-	c, _ := strconv.Atoi(yStr[:len(yStr)/2])
-	d, _ := strconv.Atoi(yStr[len(yStr)/2:])
+	x_digits := getDecimalDigits(x)
+	y_digits := getDecimalDigits(y)
 
-	fmt.Printf("X: first half: %d, second half: %d\n", a, b)
-	fmt.Printf("Y: first half: %d, second half: %d\n", c, d)
+	if x_digits >= y_digits {
+		max_digits = x_digits / 2
+	} else {
+		max_digits = y_digits / 2
+	}
 
-	p := a + b
-	q := c + d	
+	x_high, x_low := getHighAndLowDigits(x, max_digits)
+	y_high, y_low := getHighAndLowDigits(y, max_digits)
 
-	ac := Karatsuba(a, b)
-	bd := Karatsuba(c, d)
-	pq := Karatsuba(p, q)
+	z0 := Karatsuba(x_low, y_low)
+	z1 := Karatsuba((x_low + x_high), (y_low + y_high))
+	z2 := Karatsuba(x_high, y_high)
 
-	adbc := pq - ac - bd
-
-	k := int(math.Pow(10, float64(len(xStr)))) * ac
-	l := int(math.Pow(10, float64(len(xStr)/2))) * adbc
-
-	fmt.Printf("end of recursion, result: %d\n", k + l + bd)
-	return k + l + bd
+	return (z2 * int(math.Pow(10, float64(2*max_digits)))) + (z1-z2-z0)*int(math.Pow(10, float64(max_digits))) + z0
 }
 
 func main() {
