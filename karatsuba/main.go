@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math"
 )
 
@@ -28,10 +29,10 @@ func GetDecimalDigits(num int) uint {
 func GetHighAndLowDigits(num int, digits uint) (int, int) {
 	divisor := int(math.Pow(10, float64(digits)))
 	if num >= divisor {
-		fmt.Println(num, divisor, digits, num / divisor, num % divisor)
+		// fmt.Println(num, divisor, digits, num / divisor, num % divisor)
 		return num / divisor, num % divisor
 	} else {
-		fmt.Println(0, num)
+		// fmt.Println(0, num)
 		return 0, num
 	}
 }
@@ -54,11 +55,18 @@ func Karatsuba(x int, y int) int {
 	x_high, x_low := GetHighAndLowDigits(x, maxDigits)
 	y_high, y_low := GetHighAndLowDigits(y, maxDigits)
 
+	log.Println(x_high, x_low, y_high, y_low, (x_high + x_low), (y_high + y_low))
 	z0 := Karatsuba(x_low, y_low)
 	z1 := Karatsuba((x_low + x_high), (y_low + y_high))
 	z2 := Karatsuba(x_high, y_high)
 
-	return (z2 * int(math.Pow(10, float64(2*maxDigits)))) + (z1-z2-z0)*int(math.Pow(10, float64(maxDigits))) + z0
+	log.Println("z0, z1, z2:", z0, z1, z2)
+
+	p1 := (z2 * int(math.Pow(10, float64(2*maxDigits))))
+	p2 := (z1-z2-z0)*int(math.Pow(10, float64(maxDigits)))
+	log.Println("p1, p2, bd:", p1, p2, z0)
+
+	return p1 + p2 + z0
 }
 
 func main() {
