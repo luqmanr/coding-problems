@@ -56,6 +56,6 @@ func MergeSort(A []int) []int {
 }
 
 func main() {
-	Final := MergeSort([]int{5,4,1,8,7,2,6,3})
+	Final := MergeSort([]int{1,5,7,4,2,8,3,6})
 	fmt.Println("final:", Final)
 }
