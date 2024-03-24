@@ -1,18 +1,18 @@
-def bubble_sort(list):
+def bubble_sort(L):
     do_swap = True
-    n = 1
-    while do_swap is True:
-        print(f'iteration num: {n}')
-        n += 1
+    while do_swap:
         do_swap = False
-        for j in range(1, len(list)):
-            if list[j-1] > list[j]:
+        for i in range(1, len(L)):
+            if L[i-1] > L[i]:
                 do_swap = True
-                temp = list[j]
-                list[j] = list[j-1]
-                list[j-1] = temp
-            print(list)
+                tmp = L[i]
+                L[i] = L[i-1]
+                L[i-1] = tmp
+    return L
 
 if __name__ == '__main__':
-    test_list = [1,5,23,2,9,7,18,13,4,6,99,77]
-    bubble_sort(test_list)
+    test_case_1 = [99, 44, 66, 2, 3, 7, 1, 19, 33, 88]
+
+    print(f'before: {test_case_1}')
+    res = bubble_sort(test_case_1)
+    print(f'final sorted: {res}')
