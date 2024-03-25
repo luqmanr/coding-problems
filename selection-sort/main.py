@@ -1,12 +1,10 @@
 def selection_sort(L):
-    suffixSt = 0
-    while suffixSt < len(L):
-        for i in range(suffixSt, len(L)):
-            # print(i, suffixSt)
-            if L[i] < L[suffixSt]:
-                L[suffixSt], L[i] = L[i], L[suffixSt]
-        suffixSt += 1
-        print(L)
+    start = 0
+    while start < len(L):
+        for i in range(start, len(L)):
+            if L[i] < L[start]:
+                L[i], L[start] = L[start], L[i]
+        start += 1
     return L
 
 if __name__ == '__main__':
