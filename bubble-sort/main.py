@@ -1,13 +1,21 @@
+"""
+iterate over a list
+if the current element is smaller than the next element
+    swap the elements
+then do it again from the start of the list
+until no swap happens, then that means
+the list is sorted
+"""
 def bubble_sort(L):
     do_swap = True
     while do_swap:
         do_swap = False
         for i in range(1, len(L)):
             if L[i-1] > L[i]:
-                do_swap = True
                 tmp = L[i]
                 L[i] = L[i-1]
                 L[i-1] = tmp
+                do_swap = True
     return L
 
 if __name__ == '__main__':
