@@ -1,3 +1,15 @@
+"""
+search an element in a List by picking the middle point
+if element == middle point
+    return Found
+if element < middle point
+    search through lower half of List
+if element > middle point
+    search through upper half of List
+
+do this recursively until the element is found
+or if element is not in List, then return Not Found
+"""
 def bisection_search(L, e):
     def helper(L, e, low, high):
         if low == high:
@@ -5,17 +17,17 @@ def bisection_search(L, e):
                 return True, low
             else:
                 return False, None
-        
-        mid = (low + high) // 2
+                
+        mid = (low+high) // 2
+        print(low, mid, high)
+
         if L[mid] == e:
             return True, mid
-        elif L[mid] < e:
-            # print(f'using high {low, mid, high}')
-            return helper(L, e, mid+1, high)
-        else:
-            # print(f'using low {low, mid, high}')
+        elif L[mid] > e:
             return helper(L, e, low, mid-1)
-
+        elif L[mid] < e:
+            return helper(L, e, mid+1, high)
+    
     return helper(L, e, 0, len(L)-1)
 
 if __name__ == '__main__':
