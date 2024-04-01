@@ -1,3 +1,9 @@
+"""
+traverse a graph by depth
+for each node in a graph, add its neighbors to a queue
+then traverse the nodes in the queue
+until the to_search element is found
+"""
 def bfs(graph, first_node):
     # initialize items
     queue = []
