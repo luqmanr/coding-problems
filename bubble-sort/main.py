@@ -24,3 +24,9 @@ if __name__ == '__main__':
     print(f'before: {test_case_1}')
     res = bubble_sort(test_case_1)
     print(f'final sorted: {res}')
+
+    test_case_2 = [99, 44, 66, 2, -3, 7, 1, -19, 33, 88]
+
+    print(f'before: {test_case_2}')
+    res = bubble_sort(test_case_2)
+    print(f'final sorted: {res}')
