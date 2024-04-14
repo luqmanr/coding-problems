@@ -17,15 +17,13 @@ def bisection_search(L, e):
                 return True, low
             else:
                 return False, None
-                
+        
         mid = (low+high) // 2
-        print(low, mid, high)
-
         if L[mid] == e:
             return True, mid
-        elif L[mid] > e:
+        elif e < L[mid]:
             return helper(L, e, low, mid-1)
-        elif L[mid] < e:
+        else:
             return helper(L, e, mid+1, high)
     
     return helper(L, e, 0, len(L)-1)

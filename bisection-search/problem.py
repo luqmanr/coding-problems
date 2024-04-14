@@ -18,20 +18,25 @@ if __name__ == '__main__':
 
     e = 11
     res = bisection_search(L, e)
+    print(f'looking for {e} in {L}')
     print(f'case 1 : {res}')
     
     e = 3
     res = bisection_search(L, e)
+    print(f'looking for {e} in {L}')
     print(f'case 2 : {res}')
 
     e = 7
     res = bisection_search(L, e)
+    print(f'looking for {e} in {L}')
     print(f'case 3 : {res}')
     
     e = 0
     res = bisection_search(L, e)
+    print(f'looking for {e} in {L}')
     print(f'case 4 : {res}')
     
     e = -5
     res = bisection_search(L, e)
+    print(f'looking for {e} in {L}')
     print(f'case 5 : {res}')
